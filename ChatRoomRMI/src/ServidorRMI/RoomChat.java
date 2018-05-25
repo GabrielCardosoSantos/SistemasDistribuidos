@@ -4,8 +4,7 @@
  * and open the template in the editor.
  */
 
-//Testas commit
-
+//Testar commit
 package ServidorRMI;
 
 import Remoto.*;
