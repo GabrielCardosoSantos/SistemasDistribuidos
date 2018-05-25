@@ -13,6 +13,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,7 +27,7 @@ public class RoomChat extends UnicastRemoteObject implements IRoomChat{
     
     public RoomChat(String roomName) throws RemoteException {
         this.roomName = roomName;
-        List mensagens = new List();
+        this.mensagens = new List();
     }
 
     @Override
@@ -34,7 +35,7 @@ public class RoomChat extends UnicastRemoteObject implements IRoomChat{
         mensagens.add(usrName + ": " + msg);
         Registry registry = LocateRegistry.getRegistry(2020);
         registry.rebind(roomName, this);
-    } 
+    }
 
     @Override
     public void joinRoom(String usrName) throws RemoteException {
