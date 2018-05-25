@@ -19,7 +19,8 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author gabri
+ * @author gabri 
+ * @author paulostoll
  */
 public class RoomChat extends UnicastRemoteObject implements IRoomChat{
     String roomName;
