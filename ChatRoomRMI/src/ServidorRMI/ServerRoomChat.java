@@ -25,7 +25,6 @@ import java.util.logging.Logger;
  */
 public class ServerRoomChat extends UnicastRemoteObject implements IServerChat {
     Registry registry;     
-    String host = "localhost";
     static ArrayList<String> salas = new ArrayList<String>();
     static frmPrincipal frm;
     
@@ -40,12 +39,6 @@ public class ServerRoomChat extends UnicastRemoteObject implements IServerChat {
         }
     }
     
-    public static void main(String[] args) throws RemoteException {
-        ServerRoomChat server = new ServerRoomChat();
-        frm = new frmPrincipal(server, salas);
-        frm.setVisible(true);
-    }
-
     @Override
     public String[] getRooms() throws RemoteException {
         return this.registry.list();
@@ -79,9 +72,16 @@ public class ServerRoomChat extends UnicastRemoteObject implements IServerChat {
     
     public void closeRoom(String salaNome) throws RemoteException, NotBoundException{
         RoomChat r = (RoomChat) this.registry.lookup(salaNome);
-        //r.sendMsg("Servidor", "Sala fechada");
+        r.sendMsg("Servidor", "Sala fechada");
         this.registry.unbind(salaNome);
         salas.remove(salaNome);
+        System.out.println("Sala removida");
         frm.Atualiza();
+    }
+    
+    public static void main(String[] args) throws RemoteException {
+        ServerRoomChat server = new ServerRoomChat();
+        frm = new frmPrincipal(server, salas);
+        frm.setVisible(true);
     }
 }
