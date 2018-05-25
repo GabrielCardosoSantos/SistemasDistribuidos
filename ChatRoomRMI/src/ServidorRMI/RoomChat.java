@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-//Ola
+//Ola voce tbm
 package ServidorRMI;
 
 import Remoto.*;
