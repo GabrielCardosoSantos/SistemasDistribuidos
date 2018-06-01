@@ -5,12 +5,13 @@
  */
 package Remoto;
 
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 /**
  *
  * @author gabri
  */
-public interface IUserChat {
+public interface IUserChat extends Remote {
     public void deliverMsg(String senderName, String msg) throws RemoteException;
 }

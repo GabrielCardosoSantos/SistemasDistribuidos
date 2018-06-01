@@ -6,6 +6,8 @@
 package ServidorRMI;
 
 
+import Remoto.RoomChat;
+import java.awt.List;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -19,8 +21,7 @@ import javax.swing.DefaultListModel;
  * @author gabri
  */
 public class frmPrincipal extends javax.swing.JFrame {
-    ArrayList<String> salas;
-    ServerRoomChat server;
+    ServerChat server;
     /**
      * Creates new form frmPrincipal
      */
@@ -28,8 +29,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         initComponents();
     }
     
-    public frmPrincipal(ServerRoomChat server, ArrayList<String> salas){
-        this.salas = salas;
+    public frmPrincipal(ServerChat server){
         this.server = server;
         initComponents();
         listSalas.removeAll();
@@ -112,59 +112,19 @@ public class frmPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAbrirSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirSalaActionPerformed
-        try {
-            // TODO add your handling code here:
-            this.server.createRoom(jtfNomeSala.getText());
-        } catch (RemoteException ex) {
-            Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        // TODO add your handling code here:
+        this.server.createRoom(jtfNomeSala.getText());
     }//GEN-LAST:event_btnAbrirSalaActionPerformed
 
     private void btnFecharSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharSalaActionPerformed
         try {
-            // TODO add your handling code here:
-            this.server.closeRoom(listSalas.getSelectedValue());
-        } catch (RemoteException ex) {
-            Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NotBoundException ex) {
+            if(!listSalas.isSelectionEmpty())
+                server.closeRoom(listSalas.getSelectedValue());
+        } catch (RemoteException | NotBoundException ex) {
             Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnFecharSalaActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new frmPrincipal().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAbrirSala;
@@ -175,12 +135,11 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JList<String> listSalas;
     // End of variables declaration//GEN-END:variables
 
-    public void Atualiza(){
-        
+    public void Atualiza(ArrayList salas) throws RemoteException{
         DefaultListModel info = new DefaultListModel();
-        
-        for (String sala : salas) {
-            info.addElement(sala);
+        for (int i = 0; i < salas.size(); i++) {
+            RoomChat r = (RoomChat) salas.get(i);
+            info.addElement(r.getRoomName());
         }
         listSalas.setModel(info);
     }   
