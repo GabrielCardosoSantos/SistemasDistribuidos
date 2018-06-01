@@ -7,26 +7,19 @@
 //Ola voce tbm
 package Remoto;
 
-import Remoto.*;
-import java.rmi.AccessException;
-import java.rmi.NotBoundException;
+
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author gabri
  */
 public class RoomChat extends UnicastRemoteObject implements IRoomChat{
-    String roomName;
-    Map<String, IUserChat> userList;
+    public String roomName;
+    public Map<String, IUserChat> userList;
     
     public RoomChat(String roomName)throws RemoteException{
         this.roomName = roomName;
@@ -49,13 +42,16 @@ public class RoomChat extends UnicastRemoteObject implements IRoomChat{
 
     @Override
     public void leaveRoom(String usrName) throws RemoteException {
-        userList.remove(usrName);
-        sendMsg(usrName, "saindo da sala.");
+        if(userList.containsKey(usrName)){
+            sendMsg(usrName, "saindo da sala.");
+            userList.remove(usrName);
+        }
     }
 
     @Override
     public void closeRoom() throws RemoteException{
         sendMsg("Servidor", "sala finalizada");
+        userList.clear();
     }
 
     @Override

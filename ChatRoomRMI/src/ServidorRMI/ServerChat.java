@@ -47,7 +47,6 @@ public class ServerChat extends UnicastRemoteObject implements IServerChat {
     public void createRoom(String roomName){
         try {
             if(!VerificaNome(roomName)){
-                
                 IRoomChat sala = new RoomChat(roomName);
                 try {
                     this.registry.bind(roomName, sala);
@@ -82,9 +81,9 @@ public class ServerChat extends UnicastRemoteObject implements IServerChat {
     public void closeRoom(String roomName) throws RemoteException, NotBoundException {
         RoomChat chat = (RoomChat) registry.lookup(roomName);
         if(chat != null){
+            chat.closeRoom();
             this.registry.unbind(roomName);
             this.roomList.remove(chat);
-            System.out.println("Sala [" + roomName + "] removida.");
             frm.Atualiza(roomList);
         }
     }
