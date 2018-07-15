@@ -5,8 +5,9 @@
         <group>
             <file>file:/C:/Users/gabri/Documents/NetBeansProjects/CausalMulticast/src/Cliente/view.java</file>
             <file>file:/C:/Users/gabri/Documents/NetBeansProjects/CausalMulticast/src/CausalMulticast/CMChannel.java</file>
+            <file>file:/C:/Users/gabri/Documents/NetBeansProjects/CausalMulticast/src/CausalMulticast/ThreadMensagens.java</file>
             <file>file:/C:/Users/gabri/Documents/NetBeansProjects/CausalMulticast/src/CausalMulticast/ThreadGrupo.java</file>
-            <file>file:/C:/Users/gabri/Documents/NetBeansProjects/CausalMulticast/src/CausalMulticast/ThreadReceive.java</file>
+            <file>file:/C:/Users/gabri/Documents/NetBeansProjects/CausalMulticast/src/CausalMulticast/VectorClock.java</file>
         </group>
     </open-files>
 </project-private>
